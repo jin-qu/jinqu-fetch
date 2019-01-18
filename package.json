@@ -1,6 +1,6 @@
 {
   "name": "jinqu-fetch",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Jinqu Fetch implementation",
   "main": "dist/index.js",
   "keywords": [
@@ -45,6 +45,6 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "jinqu": "^0.4.2"
+    "jinqu": "^0.5.1"
   }
 }
