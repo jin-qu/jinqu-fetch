@@ -1,6 +1,6 @@
 {
   "name": "jinqu-fetch",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Jinqu Fetch implementation",
   "main": "dist/index.js",
   "keywords": [
@@ -12,6 +12,8 @@
   ],
   "files": [
     "dist",
+    "lib",
+    "index.ts",
     "readme.md"
   ],
   "repository": {
