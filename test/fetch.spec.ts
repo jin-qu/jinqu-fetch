@@ -37,7 +37,7 @@ describe('Fetch tests', () => {
             ]
         });
 
-        expect(r).deep.equal(emptyResponse);
+        expect(r.value).deep.equal(emptyResponse);
 
         const options = fetchMock.lastOptions();
         expect(options.method).to.equal('GET');
@@ -69,7 +69,7 @@ describe('Fetch tests', () => {
             ]
         });
 
-        expect(r).property('$inlineCount').to.equal(42);
+        expect(r.value).property('$inlineCount').to.equal(42);
 
         fetchMock.restore();
     });
@@ -117,7 +117,7 @@ describe('Fetch tests', () => {
             url: 'Companies'
         });
 
-        expect(r).to.be.null;
+        expect(r.value).to.be.null;
 
         fetchMock.restore();
     });
