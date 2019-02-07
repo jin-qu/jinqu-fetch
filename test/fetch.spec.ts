@@ -45,61 +45,6 @@ describe('Fetch tests', () => {
         fetchMock.restore();
     });
 
-    it('should set inline count', async () => {
-        fetchMock.get(
-            'Companies',
-            {
-                headers: { 'X-InlineCount': 42 },
-                body: {}
-            },
-            {
-                method: 'GET',
-                query: {
-                    '$inlineCount': 'true',
-                },
-                overwriteRoutes: false
-            }
-        );
-
-        const fetchProvider = new FetchProvider();
-        const r = await fetchProvider.ajax({
-            url: 'Companies',
-            params: [
-                { key: '$inlineCount', value: 'true' }
-            ]
-        });
-
-        expect(r.value).property('$inlineCount').to.equal(42);
-
-        fetchMock.restore();
-    });
-
-    it('should not set inline count', async () => {
-        fetchMock.get(
-            'Companies',
-            {},
-            {
-                method: 'GET',
-                query: {
-                    '$inlineCount': 'true',
-                },
-                overwriteRoutes: false
-            }
-        );
-
-        const fetchProvider = new FetchProvider();
-        const r = await fetchProvider.ajax({
-            url: 'Companies',
-            params: [
-                { key: '$inlineCount', value: 'true' }
-            ]
-        });
-
-        expect(r).to.not.have.property('$inlineCount');
-
-        fetchMock.restore();
-    });
-
     it('should return null', async () => {
         fetchMock.get(
             'Companies',

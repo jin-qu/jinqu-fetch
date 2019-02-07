@@ -18,16 +18,7 @@ export class FetchProvider implements IAjaxProvider<Response> {
         const p = fetch(o.url, createRequest(o))
             .then(r => {
                 return r.json()
-                    .then(data => {
-                        if (data != null) {
-                            const ic = r.headers.get('X-InlineCount');
-                            if (ic != null) {
-                                data.$inlineCount = Number(ic);
-                            }
-                        }
-
-                        return { value: data, response: r };
-                    });
+                    .then(d => ({ value: d, response: r }));
             });
 
         if (!o.timeout) return <any>p;
