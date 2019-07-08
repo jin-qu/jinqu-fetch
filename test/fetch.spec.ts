@@ -3,6 +3,8 @@ import { expect } from 'chai';
 import chai = require('chai');
 import chaiAsPromised = require('chai-as-promised');
 import fetchMock = require('fetch-mock');
+import 'whatwg-fetch';
+
 import { FetchProvider } from '..';
 
 chai.use(chaiAsPromised)
