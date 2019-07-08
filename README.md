@@ -7,10 +7,14 @@
 
 Written completely in TypeScript.
 
-# Installation
-```
-npm i jinqu-fetch
-```
+## Installation
 
-# License
+> npm i jinqu-fetch
+
+## Old Browsers
+
+jinqu-fetch uses [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make requests. You can use a package like [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) to polyfill.
+
+## License
+
 jinqu-fetch is under the [MIT License](LICENSE).
