@@ -62,6 +62,6 @@
     "whatwg-fetch": "^2.0.4"
   },
   "dependencies": {
-    "jinqu": "^0.7.0"
+    "jinqu": "~1.0.0"
   }
 }
