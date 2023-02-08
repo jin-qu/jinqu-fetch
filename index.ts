@@ -1,1 +1,1 @@
-export * from './lib/fetch-provider';
+export * from "./lib/fetch-provider";
