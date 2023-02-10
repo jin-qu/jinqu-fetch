@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "umd",
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./dist",
     "declaration": true,
     "downlevelIteration": true,
     "sourceMap": true,
+    "strictFunctionTypes": false,
     "lib": [
       "es2015",
-      "dom"
+      "DOM"
     ]
   },
   "include": [
