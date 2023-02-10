@@ -12,17 +12,17 @@ export class FetchProvider implements IAjaxProvider<Response> {
 
     public ajax<T>(o: AjaxOptions): Promise<Value<T> & AjaxResponse<Response>> {
         if (o.params && o.params.length) {
-            o.url += "?" + o.params.map((p) => `${p.key}=${encodeURIComponent(p.value)}`).join("&");
+            o.url += "?" + o.params.map(p => `${p.key}=${encodeURIComponent(p.value)}`).join("&");
         }
 
         const promise = fetch(o.url, createRequest(o))
-            .then((r) => {
+            .then(r => {
                 return r.json()
-                    .then((d) => ({ value: d, response: r }));
+                    .then(d => ({ value: d, response: r }));
             });
 
         if (!o.timeout) {
-            return promise as any;
+            return promise as never;
         }
 
         return Promise.race([
@@ -30,7 +30,7 @@ export class FetchProvider implements IAjaxProvider<Response> {
             new Promise((_, reject) =>
                 setTimeout(() => reject(new Error("Request timed out")), o.timeout),
             ),
-        ]) as any;
+        ]) as never;
     }
 }
 

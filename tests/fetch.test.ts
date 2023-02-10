@@ -1,5 +1,5 @@
 import fetchMock from "jest-fetch-mock";
-import { FetchProvider } from "../dist";
+import { FetchProvider } from "..";
 
 fetchMock.enableMocks();
 
@@ -54,7 +54,7 @@ describe("Fetch tests", () => {
     });
 
     it("should throw when timeout elapsed", async () => {
-        fetchMock.mockImplementationOnce(() => new Promise((r, _) => setTimeout(() => r(null as any), 10)));
+        fetchMock.mockImplementationOnce(() => new Promise(r => setTimeout(() => r(null as never), 10)));
 
         const fetchProvider = new FetchProvider();
 
