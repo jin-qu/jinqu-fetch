@@ -21,9 +21,8 @@ export class FetchProvider implements IAjaxProvider<Response> {
                     .then(d => ({ value: d, response: r }));
             });
 
-        if (!o.timeout) {
+        if (!o.timeout)
             return promise as never;
-        }
 
         return Promise.race([
             promise,
