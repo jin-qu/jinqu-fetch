@@ -3,7 +3,6 @@ import { FetchProvider } from "..";
 
 fetchMock.enableMocks();
 
-const emptyResponse = {};
 const headers = {
     "Accept": "application/json; charset=utf-8",
     "Content-Type": "application/json; charset=utf-8"
@@ -11,24 +10,26 @@ const headers = {
 
 describe("Fetch tests", () => {
 
+    afterEach(() => {
+        fetchMock.resetMocks();
+    });
+
     it("should return null", async () => {
         fetchMock.mockResponseOnce(JSON.stringify(null));
 
-        const fetchProvider = new FetchProvider();
-        const r = await fetchProvider.ajax({
+        const ajaxProvider = new FetchProvider();
+        const r = await ajaxProvider.ajax({
             url: "Companies"
         });
 
         expect(r.value).toBe(null);
-
-        fetchMock.resetMocks();
     });
 
     it("should set url", async () => {
-        fetchMock.mockResponseOnce(JSON.stringify(emptyResponse));
+        fetchMock.mockResponseOnce(JSON.stringify({}));
 
-        const fetchProvider = new FetchProvider();
-        const r = await fetchProvider.ajax({
+        const ajaxProvider = new FetchProvider();
+        const r = await ajaxProvider.ajax({
             url: "Companies",
             params: [
                 { key: "$where", value: "o => o.id > 5" },
@@ -37,7 +38,7 @@ describe("Fetch tests", () => {
                 { key: "$take", value: "10" }
             ]
         });
-        expect(r.value).toEqual(emptyResponse);
+        expect(r.value).toEqual({});
 
         const options = fetchMock.mock.lastCall;
         const request = [
@@ -49,17 +50,15 @@ describe("Fetch tests", () => {
             }
         ];
         expect(options).toEqual(request);
-
-        fetchMock.resetMocks();
     });
 
     it("should throw when timeout elapsed", async () => {
         fetchMock.mockImplementationOnce(() => new Promise(r => setTimeout(() => r(null as never), 10)));
 
-        const fetchProvider = new FetchProvider();
+        const ajaxProvider = new FetchProvider();
 
         try {
-            await fetchProvider.ajax({
+            await ajaxProvider.ajax({
                 url: "Companies",
                 timeout: 1
             });
@@ -69,7 +68,5 @@ describe("Fetch tests", () => {
         catch (e) {
             expect(e).toHaveProperty("message", "Request timed out");
         }
-
-        fetchMock.resetMocks();
     });
 });

@@ -36,9 +36,9 @@ export class FetchProvider implements IAjaxProvider<Response> {
 export function createRequest(o: AjaxOptions) {
     const d = Object.assign({}, FetchProvider.defaultOptions);
     o = mergeAjaxOptions(d, o);
-
+    
     return {
-        body: JSON.stringify(o.data),
+        body: o.data,
         headers: o.headers,
         method: o.method,
     } as RequestInit;

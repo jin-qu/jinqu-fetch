@@ -1,6 +1,6 @@
 {
-  "name": "jinqu-fetch",
-  "version": "1.1.1",
+  "name": "@jin-qu/jinqu-fetch",
+  "version": "2.0.0-alpha1",
   "description": "Jinqu Fetch implementation",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
