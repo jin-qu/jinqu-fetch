@@ -1,7 +1,7 @@
 # Jinqu - Querying infrastructure for JavaScript, with Linq style
 
 [![Build and Test](https://github.com/jin-qu/jinqu-fetch/actions/workflows/build.yml/badge.svg)](https://github.com/jin-qu/jinqu-fetch/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/jin-qu/jinqu-fetch/graph/badge.svg?token=3WUQ44WFaI)](https://codecov.io/gh/jin-qu/jinqu-fetch)
+[![codecov](https://codecov.io/gh/jin-qu/jinqu-fetch/graph/badge.svg?token=q74l1woFij)](https://codecov.io/gh/jin-qu/jinqu-fetch)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6b5e54e8758140bb8ecb481c53c50a9f)](https://app.codacy.com/gh/jin-qu/jinqu-fetch/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 <a href="https://snyk.io/test/npm/jinqu-fetch"><img src="https://snyk.io/test/npm/jinqu-fetch/badge.svg" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/npm/jinqu-fetch" style="max-width:100%;"></a>
 
