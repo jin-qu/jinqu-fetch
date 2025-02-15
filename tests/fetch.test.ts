@@ -1,5 +1,5 @@
 import fetchMock from "jest-fetch-mock";
-import { FetchProvider } from "..";
+import { FetchProvider } from "../index";
 
 fetchMock.enableMocks();
 
@@ -19,7 +19,7 @@ describe("Fetch tests", () => {
 
         const ajaxProvider = new FetchProvider();
         const r = await ajaxProvider.ajax({
-            url: "Companies"
+            $url: "Companies"
         });
 
         expect(r.value).toBe(null);
@@ -30,8 +30,8 @@ describe("Fetch tests", () => {
 
         const ajaxProvider = new FetchProvider();
         const r = await ajaxProvider.ajax({
-            url: "Companies",
-            params: [
+            $url: "Companies",
+            $params: [
                 { key: "$where", value: "o => o.id > 5" },
                 { key: "$orderBy", value: "o => o.id" },
                 { key: "$skip", value: "10" },
@@ -44,7 +44,6 @@ describe("Fetch tests", () => {
         const request = [
             "Companies?$where=o%20%3D%3E%20o.id%20%3E%205&$orderBy=o%20%3D%3E%20o.id&$skip=10&$take=10",
             {
-                body: undefined,
                 method: "GET",
                 headers
             }
@@ -59,8 +58,8 @@ describe("Fetch tests", () => {
 
         try {
             await ajaxProvider.ajax({
-                url: "Companies",
-                timeout: 1
+                $url: "Companies",
+                $timeout: 1
             });
 
             fail("Should have failed because of timeout");
