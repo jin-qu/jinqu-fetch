@@ -36,16 +36,17 @@ export class FetchProvider implements IAjaxProvider<Response, FetchOptions> {
 }
 
 export function createRequest(o: FetchOptions) {
-    const oo = Object.assign({}, FetchProvider.defaultOptions, o);
-    const ao = Object.fromEntries(Object.entries(oo).filter(([key]) => key[0] != "$"));
+    const ao = Object.fromEntries(Object.entries(o).filter(([key]) => key[0] != "$"));
 
-    ao.method = ao.method || oo.$method;
-    if (ao.$method != "GET" && oo.$data != null && Object.keys(oo.$data).length > 0) {
-        ao.body = JSON.stringify(oo.$data);
+    ao.method = ao.method || o.$method || FetchProvider.defaultOptions.$method;
+    if (ao.$method != "GET" && o.$data != null && Object.keys(o.$data).length > 0) {
+        ao.body = JSON.stringify(o.$data);
     }
-    if (oo.$headers != null) {
-        ao.headers = Object.assign(ao.headers || {}, oo.$headers);
+    let headers = Object.assign({}, FetchProvider.defaultOptions.$headers, ao.headers);
+    if (o.$headers != null) {
+        headers = Object.assign(headers, o.$headers);
     }
+    ao.headers = headers;
 
     return ao;
 }
