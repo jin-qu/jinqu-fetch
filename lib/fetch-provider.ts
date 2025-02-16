@@ -40,7 +40,7 @@ export function createRequest(o: FetchOptions) {
     const ao = Object.fromEntries(Object.entries(oo).filter(([key]) => key[0] != "$"));
 
     ao.method = ao.method || oo.$method;
-    if (oo.$data != null && oo.$method != "GET") {
+    if (oo.$data != null && ao.$method != "GET") {
         ao.body = JSON.stringify(oo.$data);
     }
     if (oo.$headers != null) {
