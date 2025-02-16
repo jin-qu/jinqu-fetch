@@ -1,8 +1,10 @@
-import { AjaxOptions, AjaxResponse, IAjaxProvider, mergeAjaxOptions, Value } from "jinqu";
+import { AjaxOptions, AjaxResponse, IAjaxProvider, Value } from "jinqu";
 
-export class FetchProvider implements IAjaxProvider<Response> {
+export type FetchOptions = AjaxOptions & RequestInit;
 
-    public static readonly defaultOptions: AjaxOptions = {
+export class FetchProvider implements IAjaxProvider<Response, FetchOptions> {
+
+    public static readonly defaultOptions: FetchOptions = {
         $headers: {
             "Accept": "application/json; charset=utf-8",
             "Content-Type": "application/json; charset=utf-8",
@@ -10,15 +12,15 @@ export class FetchProvider implements IAjaxProvider<Response> {
         $method: "GET",
     };
 
-    public ajax<T>(o: AjaxOptions): Promise<Value<T> & AjaxResponse<Response>> {
+    public ajax<T>(o: FetchOptions): Promise<Value<T> & AjaxResponse<Response>> {
         if (o.$params && o.$params.length) {
             o.$url += "?" + o.$params.map(p => `${p.key}=${encodeURIComponent(p.value)}`).join("&");
         }
 
         const promise = fetch(o.$url, createRequest(o))
-            .then(r => {
-                return r.json()
-                    .then(d => ({ value: d, response: r }));
+            .then(async r => {
+                let d = await r.json();
+                return ({ value: d, response: r });
             });
 
         if (!o.$timeout)
@@ -33,13 +35,17 @@ export class FetchProvider implements IAjaxProvider<Response> {
     }
 }
 
-export function createRequest(o: AjaxOptions) {
-    const d = Object.assign({}, FetchProvider.defaultOptions);
-    o = mergeAjaxOptions(d, o);
+export function createRequest(o: FetchOptions) {
+    const oo = Object.assign({}, FetchProvider.defaultOptions, o);
+    const ao = Object.fromEntries(Object.entries(oo).filter(([key]) => key[0] != "$"));
 
-    return {
-        body: o.$method === "GET" ? void 0 : o.$data,
-        headers: o.$headers,
-        method: o.$method,
-    } as RequestInit;
+    ao.method = ao.method || oo.$method;
+    if (oo.$data != null && oo.$method != "GET") {
+        ao.body = JSON.stringify(oo.$data);
+    }
+    if (oo.$headers != null) {
+        ao.headers = Object.assign(ao.headers || {}, oo.$headers);
+    }
+
+    return ao;
 }
