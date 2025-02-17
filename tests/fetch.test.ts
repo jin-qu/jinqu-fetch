@@ -25,27 +25,33 @@ describe("Fetch tests", () => {
         expect(r.value).toBe(null);
     });
 
-    it("should set url", async () => {
+    it("should work with post", async () => {
         fetchMock.mockResponseOnce(JSON.stringify({}));
+
+        const $method = "POST";
+        const $data = { foo: "bar" };
+        const $headers = { "cookie": "foo=bar" };
+        const $params = [
+            { key: "$where", value: "o => o.id > 5" },
+            { key: "$orderBy", value: "o => o.id" },
+            { key: "$skip", value: "10" },
+            { key: "$take", value: "10" }
+        ];
 
         const ajaxProvider = new FetchProvider();
         const r = await ajaxProvider.ajax({
-            $url: "Companies",
-            $params: [
-                { key: "$where", value: "o => o.id > 5" },
-                { key: "$orderBy", value: "o => o.id" },
-                { key: "$skip", value: "10" },
-                { key: "$take", value: "10" }
-            ]
+            $url: "Companies", $method, $data, $headers, $params,
         });
         expect(r.value).toEqual({});
 
+        const postHeaders = Object.assign({}, headers, $headers);
         const options = fetchMock.mock.lastCall;
         const request = [
             "Companies?$where=o%20%3D%3E%20o.id%20%3E%205&$orderBy=o%20%3D%3E%20o.id&$skip=10&$take=10",
             {
-                method: "GET",
-                headers
+                method: $method,
+                headers: postHeaders,
+                body: JSON.stringify($data),
             }
         ];
         expect(options).toEqual(request);
