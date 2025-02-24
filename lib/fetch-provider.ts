@@ -1,4 +1,4 @@
-import { AjaxOptions, AjaxResponse, IAjaxProvider, Value } from "jinqu";
+import { AjaxOptions, AjaxResponse, IAjaxProvider, Value } from "@jin-qu/jinqu";
 
 export type FetchOptions = AjaxOptions & RequestInit;
 
